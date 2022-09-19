@@ -1,0 +1,26 @@
+{
+  "main.js": "mobile/main.js",
+  "main.js.map": "main.a8d26af8596b219c4eef.hot-update.js.map",
+  "mobile/main.js.map": "mobile/main.js.map",
+  "runtime.js": "mobile/runtime.js",
+  "runtime.js.map": "mobile/runtime.js.map",
+  "vendors~main.js": "mobile/vendors~main.js",
+  "vendors~main.js.map": "mobile/vendors~main.js.map",
+  "wpackioEp": {
+    "main": {
+      "assets": {
+        "js": [
+          "mobile/runtime.js",
+          "mobile/vendors~main.js",
+          "mobile/main.js"
+        ],
+        "js.map": [
+          "mobile/runtime.js.map",
+          "mobile/vendors~main.js.map",
+          "mobile/main.js.map",
+          "main.a8d26af8596b219c4eef.hot-update.js.map"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+body {
+	--headers-height: 80px;
+	&.page-template---templateswave-display-list-php,
+	&.page-template---templateswave-overlay-test-php {
+		min-height: calc(100vh - var(--headers-height));
+		main {
+			margin: 0;
+			padding: 0;
+			article {
+				max-width: 100%;
+				@media (min-width: 768px) { 
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					height: calc(100vh - var(--headers-height));
+				}
+				#map {
+					min-height: 50vh;
+					@media (min-width: 768px) { 
+						min-height: 0;
+					}
+				}
+				#map, #buoys {
+					@media (min-width: 768px) { 
+						height: calc(100vh - var(--headers-height));
+					}
+				}
+				#map {
+					@media (min-width: 768px) { 
+						grid-area: 1 / 1 / 2 / 3;
+					}
+				}
+				#buoys {
+					overflow: scroll;
+					padding: 10px;
+					@media (min-width: 768px) { 
+						grid-area: 1 / 1 / 2 / 3;
+						& > div[id^="buoy-"] {
+							padding-left: 50%;
+							transition: all 0.3s;
+							&.expanded {
+								padding-left: 25%;
+							}
+						}
+					}
+				}
+			}
+		}
+		&.admin-bar {
+			--headers-height: 112px;
+		}
+	}
+	&.page-template---templateswave-overlay-test-php {
+		main {
+			article {
+				@media (min-width: 768px) { 
+					grid-template-columns: 1fr;
+				}
+			}
+		}
+	}
+	&.page-template-wave-display-react {
+		min-height: calc(100vh - var(--headers-height));
+		#root {
+			max-width: 100%;
+			@media (min-width: 768px) { 
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				column-gap: 20px;
+				height: calc(100vh - var(--headers-height));
+			}
+			.maps {
+				min-height: 50vh;
+				height: 50vh;
+				@media (min-width: 768px) { 
+					min-height: 0;
+				}
+			}
+			.maps, .charts {
+				@media (min-width: 768px) { 
+					height: calc(100vh - var(--headers-height));
+				}
+			}
+			.maps {
+				@media (min-width: 768px) { 
+					grid-area: 1 / 1 / 2 / 2;
+				}
+			}
+			.charts {
+				overflow: scroll;
+				padding: 10px 5px;
+				@media (min-width: 768px) { 
+				padding: 10px;
+				grid-area: 1 / 1 / 2 / 3;
+					& > div > .card {
+						margin-left: 50%;
+						transition: all 0.3s;
+						&.expanded {
+							margin-left: 25%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.clear-fix {
+	&::after {
+		content: '';
+		clear: both;
+		display: block;
+	}
+}
+
+// .btn-group,
+// .btn-group-vertical {
+//   position: relative;
+//   display: inline-flex;
+//   vertical-align: middle; }
+//   .btn-group > .btn,
+//   .btn-group-vertical > .btn {
+//     position: relative;
+//     flex: 1 1 auto; }
+//     .btn-group > .btn:hover,
+//     .btn-group-vertical > .btn:hover {
+//       z-index: 1; }
+//     .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,
+//     .btn-group-vertical > .btn:focus,
+//     .btn-group-vertical > .btn:active,
+//     .btn-group-vertical > .btn.active {
+//       z-index: 1; }
