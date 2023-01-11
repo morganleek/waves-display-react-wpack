@@ -1,9 +1,9 @@
 <?php 
 	/*
-	Plugin Name:  Waves Display React (WPack.io)
-	Plugin URI:   https://github.com/morganleek/waves-display-react/
+	Plugin Name:  Waves Display
+	Plugin URI:   https://github.com/morganleek/waves-display-react-wpack
 	Description:  WP Plugin for displaying buoy data
-	Version:      2.0.0
+	Version:      2.0.1
 	Author:       https://morganleek.me/
 	Author URI:   https://morganleek.me/
 	License:      GPL2
