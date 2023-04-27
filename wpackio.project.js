@@ -91,6 +91,9 @@ module.exports = {
 		'languages/**',
 		'layouts/**',
 		'LICENSE',
+		'images/**',
+		'includes/**',
+		'templates/**',
 		'*.css',
 	],
 	// Path to package directory, relative to the root
