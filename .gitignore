@@ -12,3 +12,6 @@ config.json
 
 # Vendors
 vendor/
+
+# Package
+package/
