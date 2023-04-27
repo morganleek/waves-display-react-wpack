@@ -174,7 +174,8 @@ export class Map extends Component {
 								// Friendly date format
 								currentDay = pathDate.getDate();
 								const day = pathDate.getDate().toString().padStart( 2, "0" );
-								const month = pathDate.getMonth().toString().padStart( 2, "0" );
+								// JS months start a 0 
+								const month = ( pathDate.getMonth() + 1 ).toString().padStart( 2, "0" );
 								let label = day + '/' + month;
 
 								// Add year for first entry
