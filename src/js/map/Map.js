@@ -77,13 +77,22 @@ export class Map extends Component {
 			if( json.length > 0 ) {
 
 				json.forEach( ( element, index ) => {
+					const lat = parseFloat( element.lat );
+					const lng = parseFloat( element.lng );
+
+					// Bounds Min/Max
+					bounds.minLat = ( bounds.minLat < lat ) ? bounds.minLat : lat;
+					bounds.maxLat = ( bounds.maxLat > lat ) ? bounds.maxLat : lat;
+					bounds.minLng = ( bounds.minLng < lng ) ? bounds.minLng : lng;
+					bounds.maxLng = ( bounds.maxLng > lng ) ? bounds.maxLng : lng;
+
 					if( parseInt( element.drifting ) == 0 ) {
 						
 						let marker = {
 							buoyId: element.id,
 							label: element.web_display_name,
-							lat: parseFloat( element.lat ),
-							lng: parseFloat( element.lng ),
+							lat: lat,
+							lng: lng,
 							isEnabled: parseInt( element.is_enabled ),
 							buoyDownloadText: element.download_text,
 							downloadPath: '',
@@ -92,12 +101,6 @@ export class Map extends Component {
 							startDate: element.start_date,
 							endDate: element.end_date
 						};
-
-						// Bounds
-						bounds.minLat = ( bounds.minLat < marker.lat ) ? bounds.minLat : marker.lat;
-						bounds.maxLat = ( bounds.maxLat > marker.lat ) ? bounds.maxLat : marker.lat;
-						bounds.minLng = ( bounds.minLng < marker.lng ) ? bounds.minLng : marker.lng;
-						bounds.maxLng = ( bounds.maxLng > marker.lng ) ? bounds.maxLng : marker.lng;
 
 						this.setState( ( state ) => ( { markers: [...state.markers, marker] } ) );
 					}
@@ -347,9 +350,9 @@ export class Map extends Component {
 				// Set bounds
 				ref.fitBounds( {
 					east: maxLng, 
-					west: minLng,
 					north: maxLat, 
-					south: minLat 
+					south: minLat,
+					west: minLng,
 				} );
 			}
 		}, 1000 );

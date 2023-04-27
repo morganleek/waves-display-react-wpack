@@ -21,6 +21,11 @@
 										'label' => 'Google Maps API Key',
 										'name' => 'maps_key'
 									),
+									// array( 
+									// 	'label' => 'Map Show All Buoys',
+									// 	'name' => 'maps_show_all_buoys',
+									// 	'type' => 'checkbox'
+									// ),
 									array( 
 										'label' => 'Map Centre Lat',
 										'name' => 'maps_lat'

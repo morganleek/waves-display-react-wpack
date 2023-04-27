@@ -7,12 +7,12 @@ import { Map } from './map/Map';
 
 import "../scss/bundle.scss";
 
-
 export class App extends Component {
 	constructor( props ) {
     super( props );
 
     this.state = {
+      showAll: ( wad.googleShowAllBuoys ) ? wad.googleShowAllBuoys : false,
       center: {
         lat: ( typeof( wad ) != "undefined" && 'googleLat' in wad ) ? parseFloat( wad.googleLat ) : 0.0,
         lng: ( typeof( wad ) != "undefined" && 'googleLng' in wad ) ? parseFloat( wad.googleLng ) : 0.0
@@ -40,10 +40,10 @@ export class App extends Component {
   }
 
   render() {
-    const { center, zoom, focus } = this.state;
+    const { showAll, center, zoom, focus } = this.state;
     
     return <>
-      <Map center={ center } zoom={ zoom } updateFocus={ this.updateFocus } />
+      <Map showAll={ showAll } center={ center } zoom={ zoom } updateFocus={ this.updateFocus } />
       <Charts updateCenter={ this.updateMapCenter } 
               updateZoom={ this.updateMapZoom } 
               buoyFocus={ focus } />
