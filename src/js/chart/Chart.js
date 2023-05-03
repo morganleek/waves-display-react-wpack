@@ -344,7 +344,14 @@ export class ChartTable extends Component {
       const lastTime = DateTime.fromMillis( last );
       // Mark if last record is more than 4 hours
       hasRecentData = last + diff > Date.now();
-      dateTime = <span className={ classNames( { "recent-date": hasRecentData, "out-of-date": !hasRecentData } ) }>{ lastTime.toFormat( 'd LLL y h:mma' ) }</span>
+      dateTime = <span className={ 
+        classNames( 
+          { 
+            "recent-date": hasRecentData, 
+            "out-of-date": !hasRecentData 
+          } 
+        ) 
+      }>{ lastTime.toFormat( 'd LLL y h:mma' ) }<span className="epoch">{ last }</span></span>
     }
 
     return (
