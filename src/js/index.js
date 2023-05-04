@@ -1,5 +1,5 @@
 // Charts - React.js
-import React, { useState, Component, Fragment } from "react";
+import React, { useState, useEffect, Component, Fragment } from "react";
 import * as ReactDOM from 'react-dom/client';
 
 import { Charts } from './chart/Chart';
@@ -7,48 +7,53 @@ import { Map } from './map/Map';
 
 import "../scss/bundle.scss";
 
-export class App extends Component {
-	constructor( props ) {
-    super( props );
-
-    this.state = {
-      showAll: ( wad.googleShowAllBuoys ) ? wad.googleShowAllBuoys : false,
-      center: {
-        lat: ( typeof( wad ) != "undefined" && 'googleLat' in wad ) ? parseFloat( wad.googleLat ) : 0.0,
-        lng: ( typeof( wad ) != "undefined" && 'googleLng' in wad ) ? parseFloat( wad.googleLng ) : 0.0
-      },
-      zoom: ( window.innerWidth < 1200 ) ? 4 : 5,
-      focus: null
+export default function App( props ) {
+  // States
+  const [showAll, setShowAll] = useState( ( wad.googleShowAllBuoys ) ? wad.googleShowAllBuoys : false );
+  const [center, setCenter] = useState( 
+    {
+      lat: ( typeof( wad ) != "undefined" && 'googleLat' in wad ) ? parseFloat( wad.googleLat ) : 0.0,
+      lng: ( typeof( wad ) != "undefined" && 'googleLng' in wad ) ? parseFloat( wad.googleLng ) : 0.0
     }
+  );
+  const [zoom, setZoom] = useState( ( window.innerWidth < 1200 ) ? 4 : 5 );
+  const [focus, setFocus] = useState( null );
 
-    // Bind this state so buttons state doesn't rise up
-    this.updateMapCenter = this.updateMapCenter.bind( this );
-    this.updateMapZoom = this.updateMapZoom.bind( this );
-    this.updateFocus = this.updateFocus.bind( this );
-  }
+  useEffect( ( ) => {
+    // Props loaded via javascript globals 
+    // No need to setup anything but reload 
+    // when zoom and center change.
+  }, [ zoom, center ] );
 
-  updateMapCenter( newCenter ) {
-    this.setState( { center: newCenter } );
+  const updateMapCenter = ( newCenter ) => {
+    setCenter( newCenter );
+    setZoom( 10 );
   }
   
-  updateMapZoom( newZoom ) {
-    this.setState( { zoom: newZoom } );
+  const updateMapZoom = ( newZoom ) => {
+    console.log( newZoom );
+    setZoom( newZoom );
   }
 
-  updateFocus( buoyId ) {
-    this.setState( { focus: buoyId } );
+  const updateFocus = ( buoyId ) => {
+    setFocus( buoyId );
   }
 
-  render() {
-    const { showAll, center, zoom, focus } = this.state;
-    
-    return <>
-      <Map showAll={ showAll } center={ center } zoom={ zoom } updateFocus={ this.updateFocus } />
-      <Charts updateCenter={ this.updateMapCenter } 
-              updateZoom={ this.updateMapZoom } 
-              buoyFocus={ focus } />
+  return (
+    <>
+      <Map 
+        showAll={ showAll } 
+        center={ center } 
+        zoom={ zoom } 
+        updateFocus={ updateFocus } 
+      />
+      <Charts 
+        updateCenter={ updateMapCenter } 
+        updateZoom={ updateMapZoom } 
+        buoyFocus={ focus } 
+      />
     </>
-  }
+  );
 }
 
 document.addEventListener( "DOMContentLoaded", function( event ) { 
