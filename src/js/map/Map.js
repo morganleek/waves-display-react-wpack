@@ -527,9 +527,9 @@ export class Map extends Component {
 			</div>;
 		}
 
-		let mapRender = <h2>Loading&hellip;</h2>;
+		let mapRender = undefined; // <div className="loading"><p>Loading&hellip;</p></div>;
 		// Load when markers, zoom and center are defined
-		if( center && currentZoom && markers ) {
+		if( center !== undefined && currentZoom !== undefined && markers.length > 0 ) {
 			mapRender = <LoadScript
 				googleMapsApiKey={ ( typeof( wad ) != "undefined" ) ? wad.googleApiKey : '' }
 			>

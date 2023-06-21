@@ -1,4 +1,4 @@
-import $ from 'jquery';
+// import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import chartStyles from './chart-style.json';
 import { DateTime } from 'luxon'; 
@@ -394,17 +394,30 @@ export function wadProcessMemplots( response ) {
 			const buoy = response.data.slice(-1);
 			for( let i = 0; i < buoy.length; i++ ) {
 				// Fetch memplot path
-				$.ajax({
-					type: 'POST',
-					url: wad.ajax,
-					data: { 
-						action: 'waf_get_file_path',
-						id: buoy[i].id,
-						buoy_id: buoy[i].buoy_id
-					},
-					success: wadProcessMemplot,
-					dataType: 'json'
-				});
+				const init = {
+					method: 'POST'
+				}
+				fetch( wad.ajax + "?action=waf_get_file_path&id=" + buoy[i].id + "&buoy_id=" + buoy[i].buoy_id, init ) 
+					.then( response => {
+						if( !response.ok ) throw Error( response.statusText );
+						// console.log( response );
+						return response.json();
+					} )
+					.then( json => {
+						wadProcessMemplot( json );
+					} );
+
+				// $.ajax({
+				// 	type: 'POST',
+				// 	url: wad.ajax,
+				// 	data: { 
+				// 		action: '',
+				// 		id: buoy[i].id,
+				// 		buoy_id: buoy[i].buoy_id
+				// 	},
+				// 	success: wadProcessMemplot,
+				// 	dataType: 'json'
+				// });
 			}
 		}
 	}

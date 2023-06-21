@@ -57,11 +57,13 @@ export default function App( props ) {
 }
 
 document.addEventListener( "DOMContentLoaded", function( event ) { 
-  if( document.getElementsByClassName('page-template-wave-display-react').length ) {
+  if( document.getElementById( 'waves-maps-and-charts' ) ) {
+    const root = ReactDOM.createRoot( document.getElementById( 'waves-maps-and-charts' ) );
+    root.render( <App /> );
+  }
+  else if( document.getElementsByClassName('page-template-wave-display-react').length ) {
     const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
-    root.render(
-      <App/>
-    );
+    root.render( <App/> );
   }
 
   // News Message

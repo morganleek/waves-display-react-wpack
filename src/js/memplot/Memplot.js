@@ -1,26 +1,21 @@
-
-
-import { data } from "jquery";
 import React, { Component, Fragment } from "react";
-
-// import { wadRawDataToChartData, wadGenerateChartData, wadGetAspectRatio } from '../api/chart';
 import { getMemplots, getMemplot } from '../api/memplots';
-
-const classNames = require('classnames');
+// import { wadRawDataToChartData, wadGenerateChartData, wadGetAspectRatio } from '../api/chart';
+// const classNames = require('classnames');
 
 export class Memplot extends Component {
-  constructor( props ) {
-    super( props );
-    
-    this.state = {
-      data: [],
+	constructor( props ) {
+		super( props );
+		
+		this.state = {
+			data: [],
 			loading: true
-    }
-  }
+		}
+	}
 
-  componentDidMount() {
+	componentDidMount() {
 		this.loadMemplots();
-  }
+	}
 
 	componentDidUpdate( prevProps ) {
 		const { startDate, endDate } = this.props;
@@ -35,16 +30,16 @@ export class Memplot extends Component {
 			const { startDate, endDate } = this.props;
 			
 			getMemplots( this.props.buoyId, startDate.getTime() / 1000, endDate.getTime() / 1000 ).then( json => {
-			  this.setState( {
+				this.setState( {
 					loading: false,
-			    data: json.data
-			  } );
+					data: json.data
+				} );
 			} );
 		}
 	}
 
 
-  render() {
+	render() {
 		const { data, loading } = this.state;
 		if( this.props.buoyId ) {
 			let content = <p>Loading &hellip;</p>;
@@ -73,25 +68,25 @@ export class Memplot extends Component {
 			);
 		}
 
-    return (
-      <div className="chart-memplot"><pre>No id set</pre></div>
-    );
-  }
+		return (
+			<div className="chart-memplot"><pre>No id set</pre></div>
+		);
+	}
 }
 
 // 
 export class MemplotImage extends Component {
-  constructor( props ) {
-    super( props );
-    
-    this.state = {
-      path: ''
-    }
-  }
+	constructor( props ) {
+		super( props );
+		
+		this.state = {
+			path: ''
+		}
+	}
 
-  componentDidMount() {
+	componentDidMount() {
 		this.loadMemplot();
-  }
+	}
 
 	componentDidUpdate( prevProps ) {
 		const { memplotId } = this.props;
@@ -103,19 +98,19 @@ export class MemplotImage extends Component {
 	loadMemplot() {
 		if( this.props.buoyId && this.props.memplotId ) {
 			getMemplot( this.props.buoyId, this.props.memplotId ).then( json => {	
-			  this.setState( {
-			    path: json.path
-			  } );
+				this.setState( {
+					path: json.path
+				} );
 			} );	
 		}
 	}
 
-  render() {
+	render() {
 		const { path } = this.state;
 
 		if( path.length == 0 ) {
-		 return <div className="memplot-placeholder"></div>
+		return <div className="memplot-placeholder"></div>
 		}
 		return <img src={ path } width="1230" height="1082" />
-  }
+	}
 }

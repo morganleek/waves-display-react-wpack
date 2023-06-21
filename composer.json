@@ -1,5 +1,5 @@
 {
     "require": {
-        "wpackio/enqueue": "^3.4"
+        "wpackio/enqueue": "^3.5"
     }
 }
