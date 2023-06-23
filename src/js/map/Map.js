@@ -91,7 +91,7 @@ export class Map extends Component {
 					bounds.minLng = ( bounds.minLng < lng ) ? bounds.minLng : lng;
 					bounds.maxLng = ( bounds.maxLng > lng ) ? bounds.maxLng : lng;
 
-					if( parseInt( element.drifting ) == 0 ) {
+					if( parseInt( element.drifting ) === 0 ) {
 						
 						let marker = {
 							buoyId: element.id,
@@ -110,6 +110,12 @@ export class Map extends Component {
 						this.setState( ( state ) => ( { markers: [...state.markers, marker] } ) );
 					}
 				} );
+			}
+
+			// Check if really zoomed in or only one time and set range to about 0.1 degree +/-
+			if( Math.abs( bounds.minLat - bounds.maxLat ) < 0.1 ) {
+				bounds.minLat -= 0.05;
+				bounds.maxLat += 0.05;
 			}
 			
 			this.setState( () => ( { minLat : bounds.minLat, maxLat : bounds.maxLat, minLng : bounds.minLng, maxLng : bounds.maxLng } ) );

@@ -35,7 +35,7 @@
 		margin: 0;
 		display: flex;
 		align-items: center;
-		font-size: 1.3rem;
+		font-size: min(13px, 0.8125rem);
 		input[type="checkbox"] {
 			width: 20px;
 			height: 20px;

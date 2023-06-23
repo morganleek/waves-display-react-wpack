@@ -61,6 +61,7 @@ body {
 	&.page-template-wave-display-react {
 		min-height: calc(100vh - var(--headers-height));
 	}
+	
 	&.page-template-wave-display-react #root,
 	#waves-maps-and-charts {
 		max-width: 100%;
@@ -103,6 +104,28 @@ body {
 						margin-left: 25%;
 					}
 				}
+			}
+		}
+	}
+	#waves-maps-and-charts {
+		.charts {
+			@media (min-width: 768px) { 
+				& > div > .card {
+					margin-left: 0;
+				}
+			}
+		}
+		.card.card-primary {
+			.card-header {
+				// button.btn {
+				// 	font-size: 0.75rem;
+				// }
+				// h5.latest-observations {
+				// 	font-size: 0.8125;
+				// }
+				// h6 {
+				// 	font-size: 0.75rem;
+				// }
 			}
 		}
 	}
