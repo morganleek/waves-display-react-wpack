@@ -224,6 +224,11 @@ export function wadGenerateChartData( waves, includes, multiplier = 1 ) {
 						lineHeight: 1.1,
 						fontColor: '#989898'
 					},
+					tooltip: {
+						callbacks: {
+							label: labelTooltip,
+						}
+					},
 				},
 				scales: axes,
 				legend: {
@@ -233,11 +238,11 @@ export function wadGenerateChartData( waves, includes, multiplier = 1 ) {
 						fontColor: '#000000'
 					},
 				},
-				tooltips: {
-					callbacks: {
-						label: wadTempToolTip 
-					}
-				}
+				// tooltips: {
+				// 	callbacks: {
+				// 		label: wadTempToolTip 
+				// 	}
+				// }
 			}
 		};
 		return { config: config, dataPoints: dataPoints, timeLabel: scaleLabel, timeRange: timeRange };
@@ -449,30 +454,53 @@ export function wadRawDataToChartData( data ) {
   return processed;
 }
 
-// Combining Temp Tooltips
-function wadTempToolTip( tooltipItem, data ) {
-  if( ( tooltipItem.datasetIndex == 2 || tooltipItem.datasetIndex == 3 ) && data.datasets.hasOwnProperty( 3 ) ) {
-    // Temp data and Bottom Temp Exists
-    const otherIndex = ( tooltipItem.datasetIndex == 2 ) ? 3 : 2;
-    const firstValue = Math.round(tooltipItem.yLabel * 100) / 100;
-    const secondValue = Math.round(data.datasets[otherIndex].data[tooltipItem.index].y * 100) / 100;
-    if( firstValue != secondValue ) {
-      let firstLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-      let secondLabel = data.datasets[otherIndex].label || '';
-      firstLabel = ( firstLabel ) ? firstLabel + ': ' + firstValue : firstValue;
-      secondLabel = ( secondLabel ) ? secondLabel + ': ' + secondValue : secondValue;
-      return [ firstLabel, secondLabel ];
-    }
-  }
-  // Everything else
-  var label = data.datasets[tooltipItem.datasetIndex].label || '';
+// Tooltips for all types
+function labelTooltip( tooltipItem ) {
+	const { dataIndex, dataset } = tooltipItem;
 
-  if (label) {
-    label += ': ';
-  }
-  label += Math.round(tooltipItem.yLabel * 100) / 100;
-  return label;
+	switch ( dataset.label ) {
+		case "Peak Wave Period & Direction (s & deg)": // Peak Period & Direction
+			const wavePeriod = dataset.data[dataIndex].y + "s";
+			const waveDirection = dataset.rotation[dataIndex] + "deg";
+			return 'Peak Wave Period & Direction: ' + wavePeriod + ", " + waveDirection;
+		case "Sea Surface Temperature (°C)": // Temp
+			const seaTemperature = dataset.data[dataIndex].y + "°C";
+			return 'Temperature: ' + seaTemperature;
+		case "Significant Wave Height (m)": // Sig Wave Height
+			const sigWaveHeight = dataset.data[dataIndex].y + "m";
+			return 'Significant Wave Height: ' + sigWaveHeight;
+		case "Bottom Temperature (°C)":
+			const botTemperature = dataset.data[dataIndex].y + "°C";
+			return "Bottom Temperature: " + botTemperature;
+		default: 
+			return '';
+	}
 }
+
+// Combining Temp Tooltips
+// function wadTempToolTip( tooltipItem, data ) {
+//   if( ( tooltipItem.datasetIndex == 2 || tooltipItem.datasetIndex == 3 ) && data.datasets.hasOwnProperty( 3 ) ) {
+//     // Temp data and Bottom Temp Exists
+//     const otherIndex = ( tooltipItem.datasetIndex == 2 ) ? 3 : 2;
+//     const firstValue = Math.round(tooltipItem.yLabel * 100) / 100;
+//     const secondValue = Math.round(data.datasets[otherIndex].data[tooltipItem.index].y * 100) / 100;
+//     if( firstValue != secondValue ) {
+//       let firstLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+//       let secondLabel = data.datasets[otherIndex].label || '';
+//       firstLabel = ( firstLabel ) ? firstLabel + ': ' + firstValue : firstValue;
+//       secondLabel = ( secondLabel ) ? secondLabel + ': ' + secondValue : secondValue;
+//       return [ firstLabel, secondLabel ];
+//     }
+//   }
+//   // Everything else
+//   var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+//   if (label) {
+//     label += ': ';
+//   }
+//   label += Math.round(tooltipItem.yLabel * 100) / 100;
+//   return label;
+// }
 
 // Appearance for each datapoint type
 export function generateDataPoints( includes ) {
