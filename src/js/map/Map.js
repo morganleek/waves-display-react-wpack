@@ -388,6 +388,7 @@ export class Map extends Component {
 			infoWindow
 		} = this.state;
 
+		console.log( markers );
 	
 		// Polylines
 		let polylines = [];

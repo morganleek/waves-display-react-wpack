@@ -461,7 +461,8 @@ function labelTooltip( tooltipItem ) {
 	switch ( dataset.label ) {
 		case "Peak Wave Period & Direction (s & deg)": // Peak Period & Direction
 			const wavePeriod = dataset.data[dataIndex].y + "s";
-			const waveDirection = dataset.rotation[dataIndex] + "deg";
+			// Convert wave direction from type used by chart
+			const waveDirection = Math.abs( dataset.rotation[dataIndex] - 180 ) + "°";
 			return 'Peak Wave Period & Direction: ' + wavePeriod + ", " + waveDirection;
 		case "Sea Surface Temperature (°C)": // Temp
 			const seaTemperature = dataset.data[dataIndex].y + "°C";

@@ -68,6 +68,7 @@ export class Charts extends Component {
     return (
       <div className="charts">
         <div>{ chartsLoopRender }</div>
+        <p><small>Waves V2.2.1</small></p>
       </div>
     );
   }

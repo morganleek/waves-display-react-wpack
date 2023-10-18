@@ -12,8 +12,8 @@ export default function App( props ) {
   const [showAll, setShowAll] = useState( ( wad.googleShowAllBuoys ) ? wad.googleShowAllBuoys : false );
   const [center, setCenter] = useState( 
     {
-      lat: ( typeof( wad ) != "undefined" && 'googleLat' in wad ) ? parseFloat( wad.googleLat ) : 0.0,
-      lng: ( typeof( wad ) != "undefined" && 'googleLng' in wad ) ? parseFloat( wad.googleLng ) : 0.0
+      lat: ( typeof( wad ) != "undefined" && 'googleLat' in wad && wad.googleLat !== '' ) ? parseFloat( wad.googleLat ) : 0.0,
+      lng: ( typeof( wad ) != "undefined" && 'googleLng' in wad && wad.googleLng !== '' ) ? parseFloat( wad.googleLng ) : 0.0
     }
   );
   const [zoom, setZoom] = useState( ( window.innerWidth < 1200 ) ? 4 : 5 );
