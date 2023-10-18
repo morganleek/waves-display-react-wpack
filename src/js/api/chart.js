@@ -226,6 +226,7 @@ export function wadGenerateChartData( waves, includes, multiplier = 1 ) {
 					},
 					tooltip: {
 						callbacks: {
+							title: titleTooltip,
 							label: labelTooltip,
 						}
 					},
@@ -452,6 +453,16 @@ export function wadRawDataToChartData( data ) {
   }
 
   return processed;
+}
+
+// Format tooltip tiles
+function titleTooltip( tooltipItem ) {
+	if( tooltipItem.length > 0 ) {
+		// Limit to remove second time
+		const newLabel = tooltipItem[0].label.substr(0, 17);
+		return newLabel;
+	}
+	return '';
 }
 
 // Tooltips for all types
